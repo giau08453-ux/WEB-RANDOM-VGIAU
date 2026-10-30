@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1424">
+<title>vGiau Store - RANDOM TEAM</title>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --card-bg: #131a2e;
+  --card-border: #1e2942;
+  --txt: #ffffff;
+  --muted: #8b9bb4;
+  --accent: #6366f1;
+  --accent-btn: #4f46e5;
+  --red-bg: #2d1822;
+  --red-txt: #f87171;
+  --input-bg: #0f1626;
+  --input-border: #23304d;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--txt);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.brand span { font-size: 22px; }
+.sub-title {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.pill-badge {
+  border: 1px solid var(--card-border);
+  border-radius: 99px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Card General */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Modes */
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.mode-btn {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--txt);
+  padding: 12px 0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+.mode-btn.active {
+  background: #6366f1;
+  border-color: #818cf8;
+  color: #fff;
+}
+.mode-info {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* Inputs & Players */
+.input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+input[type="text"], textarea {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+input[type="text"]:focus, textarea:focus {
+  border-color: var(--accent);
+}
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  white-space: nowrap;
+}
+.btn-secondary {
+  background: #1e293b;
+  border: 1px solid var(--card-border);
+  color: #fff;
+}
+.btn-danger {
+  background: #311922;
+  color: #f87171;
+  border: 1px solid #451a28;
+}
+.btn-full {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  background: var(--accent-btn);
+  border-radius: 12px;
+}
+
+/* Player List */
+.player-list-status {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 16px 0;
+}
+.player-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.player-tag {
+  background: #1a233a;
+  border: 1px solid #283759;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.player-tag span.remove {
+  color: #f87171;
+  cursor: pointer;
+  font-weight: bold;
+}
+.action-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Results & Teams */
+.results-container {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  padding: 20px 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.teams-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+.team-card {
+  background: #182238;
+  border: 1px solid #28385e;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: left;
+}
+.team-card h4 {
+  margin: 0 0 8px 0;
+  color: #38bdf8;
+  font-size: 13px;
+}
+.team-member {
+  background: #0f172a;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* History & Notes */
+.history-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 13px;
+}
+.history-item:last-child { border: none; }
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.footer-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<main>
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="brand">🎲 RANDOM TEAM</div>
+      <div class="sub-title">vGiau Store - Quay ngẫu nhiên - Chia đội không trùng người</div>
+    </div>
+    <div class="pill-badge">TEAM RANDOM</div>
+  </div>
+
+  <!-- Chọn chế độ -->
+  <div class="card">
+    <div class="card-title">⚔️ Chọn chế độ</div>
+    <div class="modes-grid" id="modes">
+      <button class="mode-btn active" data-size="1">1 vs 1</button>
+      <button class="mode-btn" data-size="2">2 vs 2</button>
+      <button class="mode-btn" data-size="3">3 vs 3</button>
+      <button class="mode-btn" data-size="4">4 vs 4</button>
+    </div>
+    <div class="mode-info" id="modeInfo">Mỗi đội 1 người · Cần tối thiểu 2 người · Hiện có 0 người</div>
+  </div>
+
+  <!-- Người chơi -->
+  <div class="card">
+    <div class="card-title">
+      <span>👥 Người chơi</span>
+      <span style="font-size: 13px; color: var(--muted);" id="playerCount">0 người</span>
+    </div>
+    
+    <div class="input-group">
+      <input type="text" id="playerName" placeholder="Nhập tên người chơi..." maxlength="30">
+      <button class="btn btn-primary" id="addBtn">+ Thêm</button>
+    </div>
+
+    <div id="playerTags" class="player-tags"></div>
+    <div id="noPlayers" class="player-list-status">Chưa có người chơi</div>
+
+    <div class="action-row">
+      <button class="btn btn-secondary" id="addSampleBtn">+ Thêm tên mẫu</button>
+      <button class="btn btn-secondary" id="clearPlayersBtn">🗑️ Xóa tất cả</button>
+    </div>
+  </div>
+
+  <!-- Nút Quay -->
+  <button class="btn btn-primary btn-full" id="drawBtn">🎲 QUAY RANDOM CHIA TEAM</button>
+
+  <!-- Kết quả -->
+  <div class="card" style="padding: 10px;">
+    <div id="results" class="results-container">
+      Kết quả sẽ hiển thị tại đây.
+    </div>
+  </div>
+
+  <!-- Lịch sử quay -->
+  <div class="card">
+    <div class="card-title">
+      <span>📜 Lịch sử quay</span>
+      <button class="btn btn-secondary" style="font-size: 12px; padding: 6px 10px;" id="clearHistoryBtn">Xóa lịch sử</button>
+    </div>
+    <div id="historyList" class="player-list-status">Chưa có lịch sử quay</div>
+  </div>
+
+  <!-- Ghi chú -->
+  <div class="card">
+    <div class="card-title">📝 Ghi chú</div>
+    <textarea id="generalNote" placeholder="Ghi chú trận đấu, luật chơi..."></textarea>
+    <div class="mode-info">Ghi chú tự động lưu nếu trình duyệt hỗ trợ.</div>
+  </div>
+
+  <div class="footer-note">Lịch sử và ghi chú được lưu trên trình duyệt hiện tại.</div>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+let state = {
+  size: 1,
+  players: [],
+  history: [],
+  note: ''
+};
+
+// Load Saved Data
+try {
+  const saved = JSON.parse(localStorage.getItem('vgiau_store_random_data'));
+  if (saved) state = { ...state, ...saved };
+} catch (e) {}
+
+function save() {
+  localStorage.setItem('vgiau_store_random_data', JSON.stringify(state));
+}
+
+function render() {
+  // Update Mode UI
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active', +btn.dataset.size === state.size);
+  });
+  
+  const minRequired = state.size * 2;
+  $('#modeInfo').textContent = Mỗi đội ${state.size} người · Cần tối thiểu ${minRequired} người · Hiện có ${state.players.length} người;
+  $('#playerCount').textContent = ${state.players.length} người;
+
+  // Render Players
+  if (state.players.length === 0) {
+    $('#noPlayers').style.display = 'block';
+    $('#playerTags').innerHTML = '';
+  } else {
+    $('#noPlayers').style.display = 'none';
+    $('#playerTags').innerHTML = state.players.map((p, i) => `
+      <div class="player-tag">
+        <span>${escapeHtml(p)}</span>
+        <span class="remove" onclick="removePlayer(${i})">×</span>
+      </div>
+    `).join('');
+  }
+
+  // Render Notes
+  $('#generalNote').value = state.note || '';
+
+  // Render History
+  renderHistory();
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function addPlayer() {
+  const input = $('#playerName');
+  const val = input.value.trim();
+  if (!val) return;
+  state.players.push(val);
+  input.value = '';
+  save();
+  render();
+}
+
+function removePlayer(idx) {
+  state.players.splice(idx, 1);
+  save();
+  render();
+}
+
+function renderHistory() {
+  if (state.history.length === 0) {
+    $('#historyList').className = 'player-list-status';
+    $('#historyList').textContent = 'Chưa có lịch sử quay';
+  } else {
+    $('#historyList').className = '';
+    $('#historyList').innerHTML = state.history.map((h, idx) => `
+      <div class="history-item">
+        <strong>Lượt #${state.history.length - idx}</strong> (${new Date(h.time).toLocaleTimeString('vi-VN')})
+        <div style="margin-top: 4px; color: var(--muted);">
+          Team 1: ${h.teams[0].join(', ')} <br>
+          Team 2: ${h.teams[1].join(', ')}
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+// Mode Selection
+$('#modes').onclick = e => {
+  const btn = e.target.closest('.mode-btn');
+  if (!btn) return;
+  state.size = +btn.dataset.size;
+  save();
+  render();
+};
+
+// Add & Clear Players
+$('#addBtn').onclick = addPlayer;
+$('#playerName').onkeydown = e => { if (e.key === 'Enter') addPlayer(); };
+
+$('#addSampleBtn').onclick = () => {
+  const samples = ['Người chơi 1', 'Người chơi 2', 'Người chơi 3', 'Người chơi 4'];
+  samples.forEach(s => state.players.push(s));
+  save();
+  render();
+};
+
+$('#clearPlayersBtn').onclick = () => {
+  if (confirm('Xóa toàn bộ người chơi?')) {
+    state.players = [];
+    save();
+    render();
+  }
+};
+
+// Draw Function
+$('#drawBtn').onclick = () => {
+  const minRequired = state.size * 2;
+  if (state.players.length < minRequired) {
+    alert(Cần tối thiểu ${minRequired} người chơi để quay chế độ ${state.size} vs ${state.size}!);
+    return;
+  }
+
+  // Shuffle players automatically
+  let pool = [...state.players];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  const team1 = pool.slice(0, state.size);
+  const team2 = pool.slice(state.size, state.size * 2);
+
+  const result = { teams: [team1, team2], time: Date.now() };
+
+  // Render Result UI
+  $('#results').innerHTML = `
+    <div class="teams-grid">
+      <div class="team-card">
+        <h4>TEAM 1</h4>
+        ${team1.map(m => <div class="team-member">${escapeHtml(m)}</div>).join('')}
+      </div>
+      <div class="team-card">
+        <h4>TEAM 2</h4>
+        ${team2.map(m => <div class="team-member">${escapeHtml(m)}</div>).join('')}
+      </div>
+    </div>
+  `;
+
+  state.history.unshift(result);
+  state.history = state.history.slice(0, 50); // limit 50 items
+  save();
+  renderHistory();
+};
+
+// Clear History & Note
+$('#clearHistoryBtn').onclick = () => {
+  if (confirm('Xóa lịch sử quay?')) {
+    state.history = [];
+    save();
+    renderHistory();
+  }
+};
+
+$('#generalNote').oninput = e => {
+  state.note = e.target.value;
+  save();
+};
+
+// Initial Render
+render();
+</script>
+
+</body>
+</html>
