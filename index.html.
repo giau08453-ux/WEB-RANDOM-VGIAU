@@ -3,513 +3,624 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d1424">
+<meta name="theme-color" content="#0a0e1a">
 <title>vGiau Store - RANDOM TEAM</title>
 <style>
-:root {
-  --bg: #0a0e1a;
-  --card-bg: #131a2e;
-  --card-border: #1e2942;
-  --txt: #ffffff;
-  --muted: #8b9bb4;
-  --accent: #6366f1;
-  --accent-btn: #4f46e5;
-  --red-bg: #2d1822;
-  --red-txt: #f87171;
-  --input-bg: #0f1626;
-  --input-border: #23304d;
+:root{
+    --bg:#0a0e1a;
+    --card:#131a2e;
+    --panel:#0e1527;
+    --line:#263653;
+    --text:#edf4ff;
+    --muted:#91a0bd;
+    --cyan:#00eaff;
+    --purple:#8d5cff;
+    --red:#ff496c;
+    --green:#36f0a0;
 }
-
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background-color: var(--bg);
-  color: var(--txt);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding: 16px;
-  display: flex;
-  justify-content: center;
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{width:100%;min-height:100%;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+    margin:0;
+    padding:clamp(8px,2.5vw,24px);
+    width:100%;
+    min-width:0;
+    min-height:100vh;
+    overflow-x:hidden;
+    background:radial-gradient(ellipse at top,#182445 0%,transparent 55%),var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:16px;
+    line-height:1.5;
 }
-
-main {
-  width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+button,input,textarea,select{font:inherit;max-width:100%}
+button{cursor:pointer;touch-action:manipulation}
+.app{width:100%;max-width:1100px;min-width:0;margin:0 auto}
+header{text-align:center;padding:clamp(14px,4vw,28px) 0}
+.logo{
+    color:var(--cyan);
+    font-size:clamp(25px,5vw,42px);
+    font-weight:900;
+    letter-spacing:clamp(1px,.4vw,3px);
+    overflow-wrap:anywhere;
+    text-shadow:0 0 22px #00eaff55;
 }
-
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
+.subtitle{margin-top:8px;color:var(--muted);font-size:clamp(11px,2vw,14px)}
+.layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,2vw,18px);width:100%}
+.card{
+    width:100%;min-width:0;
+    padding:clamp(13px,2.5vw,22px);
+    margin:0 0 clamp(10px,2vw,18px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:linear-gradient(145deg,#161f35,#101729);
+    box-shadow:0 12px 35px #0002;
 }
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+.full{grid-column:1/-1}
+.heading{margin-bottom:16px;color:var(--cyan);font-size:clamp(13px,2vw,15px);font-weight:900;letter-spacing:.6px;overflow-wrap:anywhere}
+.label{display:block;margin:14px 0 8px;color:#c5d1e8;font-size:13px}
+input,textarea,select{
+    display:block;width:100%;min-width:0;padding:13px;
+    border:1px solid #30405f;border-radius:10px;
+    outline:none;background:var(--panel);color:var(--text);font-size:16px;
 }
-.brand span { font-size: 22px; }
-.sub-title {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 2px;
+input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 2px #00eaff18}
+textarea{min-height:130px;resize:vertical;line-height:1.6}
+.row{display:flex;flex-wrap:wrap;gap:9px;width:100%}
+.row>*{flex:1 1 130px;min-width:0}
+.btn{
+    min-height:44px;padding:11px 13px;border:1px solid #344768;
+    border-radius:10px;background:#202c46;color:white;
+    font-size:14px;font-weight:800;overflow-wrap:anywhere;transition:filter .2s;
 }
-.pill-badge {
-  border: 1px solid var(--card-border);
-  border-radius: 99px;
-  padding: 6px 12px;
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 600;
-  letter-spacing: 0.5px;
+.btn:hover{filter:brightness(1.15)}
+.btn:active{transform:scale(.98)}
+.btn-add,.btn-primary{border-color:var(--cyan);background:var(--cyan);color:#06121d}
+.btn-purple{border-color:#7752c8;background:#392767}
+.btn-danger{border-color:#87364e;background:#3c1b2b;color:#ff8ba2}
+.btn-green{border-color:#247c62;background:#12382f;color:#72ffbd}
+.mode-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.mode{
+    min-width:0;min-height:44px;padding:9px 2px;
+    border:1px solid #30405f;border-radius:10px;
+    background:#0d1527;color:#b8c5dc;font-size:clamp(11px,1.8vw,14px);font-weight:900;
 }
-
-/* Card General */
-.card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 16px;
+.mode.active{border-color:var(--cyan);background:#07303a;color:var(--cyan)}
+.hint,.note-status{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6}
+.player-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.counter{color:var(--muted);font-size:12px}
+.player-list{display:grid;gap:8px}
+.player-item{display:flex;align-items:center;gap:10px;min-width:0;padding:10px 12px;border:1px solid #293954;border-radius:9px;background:#0e1526}
+.player-number{flex-shrink:0;color:var(--cyan);font-weight:bold}
+.player-name{flex:1;min-width:0;overflow-wrap:anywhere;word-break:break-word}
+.remove{flex-shrink:0;min-width:40px;min-height:40px;padding:5px;border:0;background:transparent;color:#ff8097;font-size:22px}
+.empty{padding:20px 8px;color:#71809d;text-align:center;font-size:13px}
+.results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.team{min-width:0;overflow:hidden;border:1px solid #30405f;border-radius:13px;background:#0c1425}
+.team-title{padding:13px 8px;font-weight:900;text-align:center;overflow-wrap:anywhere}
+.team-a .team-title{background:#10333d;color:#66f2ff}
+.team-b .team-title{background:#2a2047;color:#c2a6ff}
+.team-members{display:grid;gap:8px;padding:10px}
+.member{min-width:0;padding:10px;border-radius:8px;background:#18233a;overflow-wrap:anywhere;word-break:break-word}
+.result-empty{padding:25px 10px;border:1px dashed #30405f;border-radius:12px;color:#8190ad;text-align:center;font-size:13px}
+.history-list{display:grid;gap:10px}
+.history-item{min-width:0;padding:13px;border:1px solid #293954;border-radius:10px;background:#0d1526}
+.history-head{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:9px}
+.history-date{color:var(--muted);font-size:11px}
+.history-content{font-size:13px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+.history-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.history-actions button{flex:1 1 110px;min-width:0}
+#randomBtn{min-height:50px;white-space:normal}
+#noteInput{min-height:180px}
+footer{padding:15px 0 25px;color:#63718c;font-size:12px;text-align:center;overflow-wrap:anywhere}
+@media(max-width:800px){
+    .layout{grid-template-columns:minmax(0,1fr);gap:0}
+    .full{grid-column:auto}
+    .card{border-radius:14px}
+    .row>*{flex:1 1 140px}
 }
-.card-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 14px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@media(max-width:480px){
+    body{padding:10px;font-size:15px}
+    header{padding:12px 0 20px}
+    .card{padding:13px;margin-bottom:12px}
+    .heading{margin-bottom:13px}
+    .row{gap:8px}
+    .row>*{flex:1 1 100%}
+    .mode-grid{gap:6px}
+    .mode{min-height:42px;font-size:12px}
+    .results-grid{gap:7px}
+    .team-title{font-size:12px}
+    .team-members{padding:7px;gap:6px}
+    .member{padding:9px 7px;font-size:13px}
+    .history-item{padding:10px}
+    .history-content{font-size:12px}
+    .player-item{padding:8px}
+    #noteInput{min-height:150px}
+    footer{padding-bottom:15px}
 }
-
-/* Modes */
-.modes-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 12px;
-}
-.mode-btn {
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  color: var(--txt);
-  padding: 12px 0;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: center;
-}
-.mode-btn.active {
-  background: #6366f1;
-  border-color: #818cf8;
-  color: #fff;
-}
-.mode-info {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 8px;
-}
-
-/* Inputs & Players */
-.input-group {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-input[type="text"], textarea {
-  width: 100%;
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-}
-input[type="text"]:focus, textarea:focus {
-  border-color: var(--accent);
-}
-.btn {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  white-space: nowrap;
-}
-.btn-secondary {
-  background: #1e293b;
-  border: 1px solid var(--card-border);
-  color: #fff;
-}
-.btn-danger {
-  background: #311922;
-  color: #f87171;
-  border: 1px solid #451a28;
-}
-.btn-full {
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 700;
-  background: var(--accent-btn);
-  border-radius: 12px;
-}
-
-/* Player List */
-.player-list-status {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  margin: 16px 0;
-}
-.player-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-.player-tag {
-  background: #1a233a;
-  border: 1px solid #283759;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.player-tag span.remove {
-  color: #f87171;
-  cursor: pointer;
-  font-weight: bold;
-}
-.action-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-/* Results & Teams */
-.results-container {
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 12px;
-  padding: 20px 12px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 14px;
-  min-height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.teams-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  width: 100%;
-}
-.team-card {
-  background: #182238;
-  border: 1px solid #28385e;
-  border-radius: 10px;
-  padding: 12px;
-  text-align: left;
-}
-.team-card h4 {
-  margin: 0 0 8px 0;
-  color: #38bdf8;
-  font-size: 13px;
-}
-.team-member {
-  background: #0f172a;
-  padding: 6px 8px;
-  border-radius: 6px;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-/* History & Notes */
-.history-item {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--card-border);
-  font-size: 13px;
-}
-.history-item:last-child { border: none; }
-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-.footer-note {
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 8px;
+@media(max-width:350px){
+    body{padding:7px}
+    .card{padding:10px}
+    .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .results-grid{grid-template-columns:minmax(0,1fr)}
+    .logo{font-size:24px}
 }
 </style>
 </head>
 <body>
+<div class="app">
+<header>
+    <div class="logo">vGIAU STORE</div>
+    <div class="subtitle">RANDOM TEAM • CHIA ĐỘI NGẪU NHIÊN</div>
+</header>
 
-<main>
-  <!-- Header -->
-  <div class="header">
-    <div>
-      <div class="brand">🎲 RANDOM TEAM</div>
-      <div class="sub-title">vGiau Store - Quay ngẫu nhiên - Chia đội không trùng người</div>
+<div class="layout">
+<section class="card">
+    <div class="heading">01 / CHỌN CHẾ ĐỘ</div>
+    <div class="mode-grid">
+        <button class="mode active" data-size="1">1VS1</button>
+        <button class="mode" data-size="2">2VS2</button>
+        <button class="mode" data-size="3">3VS3</button>
+        <button class="mode" data-size="4">4VS4</button>
     </div>
-    <div class="pill-badge">TEAM RANDOM</div>
-  </div>
+    <div class="hint">Chọn số người mỗi đội. Ví dụ 4VS4 cần tối thiểu 8 người.</div>
+</section>
 
-  <!-- Chọn chế độ -->
-  <div class="card">
-    <div class="card-title">⚔️ Chọn chế độ</div>
-    <div class="modes-grid" id="modes">
-      <button class="mode-btn active" data-size="1">1 vs 1</button>
-      <button class="mode-btn" data-size="2">2 vs 2</button>
-      <button class="mode-btn" data-size="3">3 vs 3</button>
-      <button class="mode-btn" data-size="4">4 vs 4</button>
+<section class="card">
+    <div class="heading">02 / THÊM NGƯỜI CHƠI</div>
+    <label class="label" for="singleName">Tên người chơi</label>
+    <div class="row">
+        <input id="singleName" placeholder="Nhập tên người chơi..." maxlength="60">
+        <button class="btn btn-add" id="addBtn">＋ THÊM NGƯỜI</button>
     </div>
-    <div class="mode-info" id="modeInfo">Mỗi đội 1 người · Cần tối thiểu 2 người · Hiện có 0 người</div>
-  </div>
-
-  <!-- Người chơi -->
-  <div class="card">
-    <div class="card-title">
-      <span>👥 Người chơi</span>
-      <span style="font-size: 13px; color: var(--muted);" id="playerCount">0 người</span>
+    <label class="label" for="names">Nhập nhiều tên, mỗi dòng một người</label>
+    <textarea id="names" placeholder="Nhập danh sách người chơi..." style="min-height:120px"></textarea>
+    <div class="row" style="margin-top:10px">
+        <button class="btn btn-primary" id="importBtn">THÊM DANH SÁCH</button>
+        <button class="btn" id="shuffleBtn">TRỘN DANH SÁCH</button>
     </div>
-    
-    <div class="input-group">
-      <input type="text" id="playerName" placeholder="Nhập tên người chơi..." maxlength="30">
-      <button class="btn btn-primary" id="addBtn">+ Thêm</button>
+    <div class="row" style="margin-top:10px">
+        <button class="btn btn-danger" id="clearNamesBtn">XÓA TẤT CẢ NGƯỜI</button>
     </div>
+</section>
 
-    <div id="playerTags" class="player-tags"></div>
-    <div id="noPlayers" class="player-list-status">Chưa có người chơi</div>
-
-    <div class="action-row">
-      <button class="btn btn-secondary" id="addSampleBtn">+ Thêm tên mẫu</button>
-      <button class="btn btn-secondary" id="clearPlayersBtn">🗑️ Xóa tất cả</button>
+<section class="card full">
+    <div class="player-top">
+        <div class="heading" style="margin:0">DANH SÁCH NGƯỜI CHƠI</div>
+        <div class="counter" id="count">0 người</div>
     </div>
-  </div>
+    <div id="playerList" class="player-list"></div>
+</section>
 
-  <!-- Nút Quay -->
-  <button class="btn btn-primary btn-full" id="drawBtn">🎲 QUAY RANDOM CHIA TEAM</button>
+<section class="card full">
+    <div class="heading">03 / RANDOM TEAM</div>
+    <button class="btn btn-primary" id="randomBtn" style="width:100%;padding:16px;font-size:16px">⚡ CHIA ĐỘI NGẪU NHIÊN</button>
+    <div class="hint">Tên người chơi được trộn ngẫu nhiên trước khi chia đội.</div>
+</section>
 
-  <!-- Kết quả -->
-  <div class="card" style="padding: 10px;">
-    <div id="results" class="results-container">
-      Kết quả sẽ hiển thị tại đây.
+<section class="card full" id="results">
+    <div class="heading">KẾT QUẢ CHIA ĐỘI</div>
+    <div class="result-empty">Kết quả sẽ xuất hiện tại đây sau khi random.</div>
+</section>
+
+<div class="full" id="resultActions" style="display:none;margin-bottom:18px">
+    <div class="row">
+        <button class="btn btn-green" id="copyBtn">SAO CHÉP KẾT QUẢ</button>
+        <button class="btn btn-purple" id="againBtn">CHIA LẠI</button>
     </div>
-  </div>
+</div>
 
-  <!-- Lịch sử quay -->
-  <div class="card">
-    <div class="card-title">
-      <span>📜 Lịch sử quay</span>
-      <button class="btn btn-secondary" style="font-size: 12px; padding: 6px 10px;" id="clearHistoryBtn">Xóa lịch sử</button>
+<section class="card full">
+    <div class="player-top">
+        <div class="heading" style="margin:0">04 / LỊCH SỬ RANDOM</div>
+        <button class="btn btn-danger" id="clearHistoryBtn">XÓA LỊCH SỬ</button>
     </div>
-    <div id="historyList" class="player-list-status">Chưa có lịch sử quay</div>
-  </div>
+    <div id="history" class="history-list"></div>
+</section>
 
-  <!-- Ghi chú -->
-  <div class="card">
-    <div class="card-title">📝 Ghi chú</div>
-    <textarea id="generalNote" placeholder="Ghi chú trận đấu, luật chơi..."></textarea>
-    <div class="mode-info">Ghi chú tự động lưu nếu trình duyệt hỗ trợ.</div>
-  </div>
-
-  <div class="footer-note">Lịch sử và ghi chú được lưu trên trình duyệt hiện tại.</div>
-</main>
+<section class="card full" id="notesSection">
+    <div class="heading">05 / GHI CHÚ</div>
+    <textarea id="noteInput" placeholder="Nhập ghi chú của bạn tại đây..."></textarea>
+    <div class="row" style="margin-top:12px">
+        <button class="btn btn-add" id="saveNoteBtn">LƯU GHI CHÚ</button>
+        <button class="btn" id="editNoteBtn">SỬA GHI CHÚ</button>
+        <button class="btn btn-danger" id="deleteNoteBtn">XÓA GHI CHÚ</button>
+    </div>
+    <div class="note-status" id="noteStatus">Ghi chú được lưu trên trình duyệt hiện tại.</div>
+</section>
+</div>
+<footer>vGiau Store • RANDOM TEAM • 2026</footer>
+</div>
 
 <script>
-const $ = s => document.querySelector(s);
-let state = {
-  size: 1,
-  players: [],
-  history: [],
-  note: ''
-};
+const PLAYER_KEY = "vgiau_players_v3";
+const HISTORY_KEY = "vgiau_history_v3";
+const NOTE_KEY = "vgiau_note_v3";
 
-// Load Saved Data
-try {
-  const saved = JSON.parse(localStorage.getItem('vgiau_store_random_data'));
-  if (saved) state = { ...state, ...saved };
-} catch (e) {}
+const $ = id => document.getElementById(id);
+let players = loadData(PLAYER_KEY, []);
+if (!Array.isArray(players)) players = [];
+players = players.filter(name => typeof name === "string");
+let teamSize = 1;
+let currentResult = null;
 
-function save() {
-  localStorage.setItem('vgiau_store_random_data', JSON.stringify(state));
+function loadData(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : JSON.parse(value);
+    } catch {
+        return fallback;
+    }
 }
 
-function render() {
-  // Update Mode UI
-  document.querySelectorAll('.mode-btn').forEach(btn => {
-    btn.classList.toggle('active', +btn.dataset.size === state.size);
-  });
-  
-  const minRequired = state.size * 2;
-  $('#modeInfo').textContent = Mỗi đội ${state.size} người · Cần tối thiểu ${minRequired} người · Hiện có ${state.players.length} người;
-  $('#playerCount').textContent = ${state.players.length} người;
-
-  // Render Players
-  if (state.players.length === 0) {
-    $('#noPlayers').style.display = 'block';
-    $('#playerTags').innerHTML = '';
-  } else {
-    $('#noPlayers').style.display = 'none';
-    $('#playerTags').innerHTML = state.players.map((p, i) => `
-      <div class="player-tag">
-        <span>${escapeHtml(p)}</span>
-        <span class="remove" onclick="removePlayer(${i})">×</span>
-      </div>
-    `).join('');
-  }
-
-  // Render Notes
-  $('#generalNote').value = state.note || '';
-
-  // Render History
-  renderHistory();
+function saveData(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch {
+        return false;
+    }
 }
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function renderPlayers() {
+    const list = $("playerList");
+    list.replaceChildren();
+    $("count").textContent = players.length + " người";
+
+    if (!players.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "Chưa có người chơi. Hãy thêm tên vào danh sách.";
+        list.appendChild(empty);
+        return;
+    }
+
+    players.forEach((name, index) => {
+        const item = document.createElement("div");
+        item.className = "player-item";
+
+        const number = document.createElement("span");
+        number.className = "player-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        const label = document.createElement("span");
+        label.className = "player-name";
+        label.textContent = name;
+
+        const remove = document.createElement("button");
+        remove.className = "remove";
+        remove.type = "button";
+        remove.textContent = "×";
+        remove.setAttribute("aria-label", "Xóa " + name);
+        remove.addEventListener("click", () => {
+            players.splice(index, 1);
+            saveData(PLAYER_KEY, players);
+            renderPlayers();
+        });
+
+        item.append(number, label, remove);
+        list.appendChild(item);
+    });
 }
 
-function addPlayer() {
-  const input = $('#playerName');
-  const val = input.value.trim();
-  if (!val) return;
-  state.players.push(val);
-  input.value = '';
-  save();
-  render();
+function addPlayer(name) {
+    name = name.trim();
+    if (!name) return;
+    if (players.some(p => p.toLowerCase() === name.toLowerCase())) {
+        alert("Tên này đã có trong danh sách.");
+        return;
+    }
+    players.push(name);
+    saveData(PLAYER_KEY, players);
+    renderPlayers();
 }
 
-function removePlayer(idx) {
-  state.players.splice(idx, 1);
-  save();
-  render();
+$("addBtn").addEventListener("click", () => {
+    addPlayer($("singleName").value);
+    $("singleName").value = "";
+    $("singleName").focus();
+});
+
+$("singleName").addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        $("addBtn").click();
+    }
+});
+
+$("importBtn").addEventListener("click", () => {
+    const incoming = $("names").value.split(/\r?\n/).map(n => n.trim()).filter(Boolean);
+    let added = 0;
+
+    incoming.forEach(name => {
+        if (!players.some(p => p.toLowerCase() === name.toLowerCase())) {
+            players.push(name);
+            added++;
+        }
+    });
+
+    $("names").value = "";
+    saveData(PLAYER_KEY, players);
+    renderPlayers();
+    alert("Đã thêm " + added + " người chơi.");
+});
+
+function randomInt(max) {
+    if (max <= 1) return 0;
+    if (window.crypto && window.crypto.getRandomValues) {
+        const range = 4294967296;
+        const limit = Math.floor(range / max) * max;
+        const buffer = new Uint32Array(1);
+        let value;
+        do {
+            window.crypto.getRandomValues(buffer);
+            value = buffer[0];
+        } while (value >= limit);
+        return value % max;
+    }
+    return Math.floor(Math.random() * max);
+}
+
+function shuffleArray(array) {
+    const copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = randomInt(i + 1);
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+$("shuffleBtn").addEventListener("click", () => {
+    if (players.length < 2) {
+        alert("Cần ít nhất 2 người để trộn danh sách.");
+        return;
+    }
+    players = shuffleArray(players);
+    saveData(PLAYER_KEY, players);
+    renderPlayers();
+});
+
+$("clearNamesBtn").addEventListener("click", () => {
+    if (!players.length) return;
+    if (!confirm("Bạn có chắc muốn xóa toàn bộ người chơi?")) return;
+    players = [];
+    saveData(PLAYER_KEY, players);
+    renderPlayers();
+});
+
+document.querySelectorAll(".mode").forEach(button => {
+    button.addEventListener("click", () => {
+        teamSize = Number(button.dataset.size);
+        document.querySelectorAll(".mode").forEach(b => b.classList.remove("active"));
+        button.classList.add("active");
+    });
+});
+
+function makeResultText(result) {
+    return result.mode + "\n\nĐỘI A\n" +
+        result.teamA.map((n, i) => (i + 1) + ". " + n).join("\n") +
+        "\n\nĐỘI B\n" +
+        result.teamB.map((n, i) => (i + 1) + ". " + n).join("\n");
+}
+
+function renderResult(result) {
+    $("results").replaceChildren();
+
+    const heading = document.createElement("div");
+    heading.className = "heading";
+    heading.textContent = "KẾT QUẢ CHIA ĐỘI";
+
+    const grid = document.createElement("div");
+    grid.className = "results-grid";
+
+    [
+        {title:"ĐỘI A",members:result.teamA,cls:"team-a"},
+        {title:"ĐỘI B",members:result.teamB,cls:"team-b"}
+    ].forEach(team => {
+        const box = document.createElement("div");
+        box.className = "team " + team.cls;
+
+        const title = document.createElement("div");
+        title.className = "team-title";
+        title.textContent = team.title;
+
+        const members = document.createElement("div");
+        members.className = "team-members";
+
+        team.members.forEach((name, index) => {
+            const member = document.createElement("div");
+            member.className = "member";
+            member.textContent = (index + 1) + ". " + name;
+            members.appendChild(member);
+        });
+
+        box.append(title, members);
+        grid.appendChild(box);
+    });
+
+    $("results").append(heading, grid);
+    $("resultActions").style.display = "block";
+}
+
+function getHistory() {
+    const history = loadData(HISTORY_KEY, []);
+    return Array.isArray(history) ? history : [];
+}
+
+function addHistory(result) {
+    const history = getHistory();
+    history.unshift({
+        date: new Date().toLocaleString("vi-VN"),
+        result
+    });
+    saveData(HISTORY_KEY, history.slice(0, 50));
+    renderHistory();
 }
 
 function renderHistory() {
-  if (state.history.length === 0) {
-    $('#historyList').className = 'player-list-status';
-    $('#historyList').textContent = 'Chưa có lịch sử quay';
-  } else {
-    $('#historyList').className = '';
-    $('#historyList').innerHTML = state.history.map((h, idx) => `
-      <div class="history-item">
-        <strong>Lượt #${state.history.length - idx}</strong> (${new Date(h.time).toLocaleTimeString('vi-VN')})
-        <div style="margin-top: 4px; color: var(--muted);">
-          Team 1: ${h.teams[0].join(', ')} <br>
-          Team 2: ${h.teams[1].join(', ')}
-        </div>
-      </div>
-    `).join('');
-  }
+    const box = $("history");
+    box.replaceChildren();
+    const history = getHistory();
+
+    if (!history.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "Chưa có lịch sử random.";
+        box.appendChild(empty);
+        return;
+    }
+
+    history.forEach(entry => {
+        const item = document.createElement("div");
+        item.className = "history-item";
+
+        const head = document.createElement("div");
+        head.className = "history-head";
+
+        const mode = document.createElement("strong");
+        mode.textContent = entry.result.mode;
+
+        const date = document.createElement("span");
+        date.className = "history-date";
+        date.textContent = entry.date;
+
+        head.append(mode, date);
+
+        const content = document.createElement("div");
+        content.className = "history-content";
+        content.textContent = makeResultText(entry.result);
+
+        const actions = document.createElement("div");
+        actions.className = "history-actions";
+
+        const view = document.createElement("button");
+        view.className = "btn";
+        view.textContent = "XEM LẠI";
+        view.addEventListener("click", () => {
+            currentResult = entry.result;
+            renderResult(currentResult);
+            $("results").scrollIntoView({behavior:"smooth",block:"start"});
+        });
+
+        const copy = document.createElement("button");
+        copy.className = "btn btn-purple";
+        copy.textContent = "SAO CHÉP";
+        copy.addEventListener("click", () => copyText(makeResultText(entry.result)));
+
+        actions.append(view, copy);
+        item.append(head, content, actions);
+        box.appendChild(item);
+    });
 }
 
-// Mode Selection
-$('#modes').onclick = e => {
-  const btn = e.target.closest('.mode-btn');
-  if (!btn) return;
-  state.size = +btn.dataset.size;
-  save();
-  render();
-};
+$("randomBtn").addEventListener("click", () => {
+    const required = teamSize * 2;
 
-// Add & Clear Players
-$('#addBtn').onclick = addPlayer;
-$('#playerName').onkeydown = e => { if (e.key === 'Enter') addPlayer(); };
+    if (players.length < required) {
+        alert("Chế độ " + teamSize + "VS" + teamSize +
+            " cần ít nhất " + required + " người. Hiện có " + players.length + " người.");
+        return;
+    }
 
-$('#addSampleBtn').onclick = () => {
-  const samples = ['Người chơi 1', 'Người chơi 2', 'Người chơi 3', 'Người chơi 4'];
-  samples.forEach(s => state.players.push(s));
-  save();
-  render();
-};
+    let pool = [...players];
 
-$('#clearPlayersBtn').onclick = () => {
-  if (confirm('Xóa toàn bộ người chơi?')) {
-    state.players = [];
-    save();
-    render();
-  }
-};
+    if (pool.length > required) {
+        const useAll = confirm(
+            "Hiện có " + pool.length + " người, chế độ " +
+            teamSize + "VS" + teamSize + " cần " + required +
+            " người.\n\nBấm OK để chia toàn bộ nếu số người chẵn.\n" +
+            "Bấm Hủy để random đúng " + required + " người."
+        );
 
-// Draw Function
-$('#drawBtn').onclick = () => {
-  const minRequired = state.size * 2;
-  if (state.players.length < minRequired) {
-    alert(Cần tối thiểu ${minRequired} người chơi để quay chế độ ${state.size} vs ${state.size}!);
-    return;
-  }
+        if (!useAll) {
+            pool = shuffleArray(pool).slice(0, required);
+        } else if (pool.length % 2 !== 0) {
+            alert("Tổng số người là số lẻ, không thể chia toàn bộ thành hai đội bằng nhau. Hãy xóa một người hoặc bấm Hủy để random đúng số người theo chế độ.");
+            return;
+        }
+    }
 
-  // Shuffle players automatically
-  let pool = [...state.players];
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
+    pool = shuffleArray(pool);
+    const half = pool.length / 2;
 
-  const team1 = pool.slice(0, state.size);
-  const team2 = pool.slice(state.size, state.size * 2);
+    currentResult = {
+        mode: (pool.length / 2) + "VS" + (pool.length / 2),
+        teamA: pool.slice(0, half),
+        teamB: pool.slice(half)
+    };
 
-  const result = { teams: [team1, team2], time: Date.now() };
+    renderResult(currentResult);
+    addHistory(currentResult);
+});
 
-  // Render Result UI
-  $('#results').innerHTML = `
-    <div class="teams-grid">
-      <div class="team-card">
-        <h4>TEAM 1</h4>
-        ${team1.map(m => <div class="team-member">${escapeHtml(m)}</div>).join('')}
-      </div>
-      <div class="team-card">
-        <h4>TEAM 2</h4>
-        ${team2.map(m => <div class="team-member">${escapeHtml(m)}</div>).join('')}
-      </div>
-    </div>
-  `;
+$("copyBtn").addEventListener("click", () => {
+    if (currentResult) copyText(makeResultText(currentResult));
+});
 
-  state.history.unshift(result);
-  state.history = state.history.slice(0, 50); // limit 50 items
-  save();
-  renderHistory();
-};
+$("againBtn").addEventListener("click", () => $("randomBtn").click());
 
-// Clear History & Note
-$('#clearHistoryBtn').onclick = () => {
-  if (confirm('Xóa lịch sử quay?')) {
-    state.history = [];
-    save();
+async function copyText(text) {
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+        } else {
+            const temp = document.createElement("textarea");
+            temp.value = text;
+            temp.style.position = "fixed";
+            temp.style.opacity = "0";
+            document.body.appendChild(temp);
+            temp.select();
+            const success = document.execCommand("copy");
+            temp.remove();
+            if (!success) throw new Error("Copy failed");
+        }
+        alert("Đã sao chép kết quả!");
+    } catch {
+        alert("Không thể sao chép tự động. Hãy thử mở web bằng HTTPS.");
+    }
+}
+
+$("clearHistoryBtn").addEventListener("click", () => {
+    if (!confirm("Bạn có chắc muốn xóa toàn bộ lịch sử?")) return;
+    saveData(HISTORY_KEY, []);
     renderHistory();
-  }
-};
+});
 
-$('#generalNote').oninput = e => {
-  state.note = e.target.value;
-  save();
-};
+try {
+    $("noteInput").value = localStorage.getItem(NOTE_KEY) || "";
+} catch {
+    $("noteStatus").textContent = "Trình duyệt không hỗ trợ lưu ghi chú.";
+}
 
-// Initial Render
-render();
+$("saveNoteBtn").addEventListener("click", () => {
+    try {
+        localStorage.setItem(NOTE_KEY, $("noteInput").value);
+        $("noteStatus").textContent = "Đã lưu ghi chú thành công!";
+    } catch {
+        $("noteStatus").textContent = "Không thể lưu ghi chú trên trình duyệt này.";
+    }
+});
+
+$("editNoteBtn").addEventListener("click", () => {
+    $("noteInput").focus();
+    const length = $("noteInput").value.length;
+    $("noteInput").setSelectionRange(length, length);
+    $("noteStatus").textContent = "Hãy sửa nội dung rồi bấm LƯU GHI CHÚ.";
+});
+
+$("deleteNoteBtn").addEventListener("click", () => {
+    if (!confirm("Bạn có chắc chắn muốn xóa ghi chú?")) return;
+    try {
+        localStorage.removeItem(NOTE_KEY);
+        $("noteInput").value = "";
+        $("noteStatus").textContent = "Đã xóa ghi chú.";
+    } catch {
+        $("noteStatus").textContent = "Không thể xóa ghi chú.";
+    }
+});
+
+renderPlayers();
+renderHistory();
 </script>
-
 </body>
 </html>
